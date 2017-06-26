@@ -1,0 +1,42 @@
+<?page title="Tabla Datos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="normal" apply="${tablaDatosCnt}" hflex="1"
+		vflex="1">
+		<borderlayout id="border">
+
+			<north id="norte" border="none">
+				<div width="100%" hflex="1" vflex="1" sclass="menuTablaDato">
+				<hbox>
+				<toolbar id="herramientas" sclass="menuTablaDato"></toolbar>
+				<checkbox id="chkSiAnulado" label="${labels.app.mostrarAnulados}" sclass="check-sianulado"></checkbox>
+				</hbox>
+				</div>
+			</north>
+			<center vflex="1" border="none">
+				<div id="dvTabla" width="100%" height="100%" hflex="1" vflex="1"></div>
+			</center>
+			<east id="eastDetalle" visible="true" open="false" splittable="true" collapsible="true" width="50%" border="none">
+<!-- 				<div width="100%" height="100%"> -->
+					<tabbox id="tbxDetalle" hflex="1" vflex="1" orient="bottom">
+						<tabs id="tabsDetalle">
+<!-- 							<tab id="A" label="Tab A" /> -->
+<!-- 							<tab id="B" label="Tab B" /> -->
+<!-- 							<tab id="C" label="Tab C" /> -->
+<!-- 							<tab id="D" label="Tab D" /> -->
+<!-- 							<tab id="E" label="Tab E" /> -->
+						</tabs>
+						<tabpanels id="panelsDetalle" hflex="1" vflex="1">
+<!-- 							<tabpanel>This is panel A</tabpanel> -->
+<!-- 							<tabpanel>This is panel B</tabpanel> -->
+<!-- 							<tabpanel>This is panel C</tabpanel> -->
+<!-- 							<tabpanel>This is panel D</tabpanel> -->
+<!-- 							<tabpanel>This is panel E</tabpanel> -->
+						</tabpanels>
+					</tabbox>
+
+<!-- 				</div> -->
+			</east>
+
+		</borderlayout>
+	</window>
+</zk>

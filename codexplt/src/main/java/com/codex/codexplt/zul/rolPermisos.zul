@@ -1,0 +1,45 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winRolPermisos" apply="${rolPermisosCnt}" border="normal" >
+<vlayout>
+<!-- 	GRUPO ROLES -->
+	<groupbox mold="3d">
+	<caption label="${labels.codex.roles}"/>
+		<hlayout>
+			<label  value="${labels.codex.nombre.rol}" style="font-weight:bold;"></label>
+			<textbox id ="txtNombreRol" width="150px" constraint="/.{1,100}/"></textbox>
+			
+			<separator></separator>
+			
+			<label  value="${labels.codex.descripcion.rol}" style="font-weight:bold;"></label>
+			<textbox id ="txtDescripcionRol" width="150px" constraint="/.{1,100}/"></textbox>		
+		</hlayout>
+	</groupbox>
+	
+<!-- 	GRUPO PERMISOS -->
+	<groupbox mold="3d">
+	<caption label="${labels.codex.permisos}" />
+		<div>
+			<tree id="treePermisoRol" width="490px" height="450px" multiple="true" checkmark="true" rows="10" >
+				<treecols>
+					<treecol>${labels.app.formulario}</treecol>
+				</treecols>
+				<treechildren id="tchPermisoRol" >
+
+				</treechildren>
+			</tree>
+		</div>
+	
+	</groupbox>
+
+</vlayout>
+
+<div width="100%" align="center">
+	<hlayout>
+		<button id="btnAceptar" label="${labels.codex.aceptar}"/>
+		<separator width="20px"/>
+		<button id="btnCancelar" label="${labels.codex.cancelar}"/>
+	</hlayout>
+</div>
+</window>
+</zk>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Acceso" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winAcceso" title="${labels.app.acceso}" border="normal" position="center" closable="false" minimizable="false" apply="${accesoCnt}" mode="overlapped">
+    <separator></separator>
+	<vbox width="90%" left="30px" >
+		<hbox width="100%">
+			<div width="100px">
+				<label value="${labels.app.usuario}"></label>
+			</div>
+			<textbox id="txtUsuario" width="150px"></textbox>
+		</hbox>
+		<hbox width="100%">
+			<div width="100px">
+			<label  value="${labels.app.clave}"></label>
+			</div>
+			<textbox id="txtClave" width="150px" type="password" ></textbox>
+		</hbox>
+		
+			<hbox align="center" pack="center" width="100%">
+				<button id="btnIngresar" label="${labels.app.ingresar}"></button>	
+			</hbox>
+		
+		
+	</vbox>
+	<timer id="tmrUpdate" delay="250" repeats="true" />
+</window>
+</zk>

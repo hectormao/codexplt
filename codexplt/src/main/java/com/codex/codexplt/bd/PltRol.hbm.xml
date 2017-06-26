@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/03/2017 08:16:33 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.codex.codexplt.bd.PltRol" table="plt_rol" schema="codex">
+        <comment>Tabla que almacena los roles de usuario de la plataforma</comment>
+        <id name="rolIdn" type="long">
+            <column name="rol_idn" precision="10" scale="0" />
+            
+             <generator class="sequence" >
+            	<param name="sequence">SQN_PLT_ROL</param>
+            </generator>
+        </id>
+        <property name="rolNombre" type="string">
+            <column name="rol_nombre" length="20" not-null="true" unique="true">
+                <comment>Nombre del rol</comment>
+            </column>
+        </property>
+        <property name="rolDescripcion" type="string">
+            <column name="rol_descripcion">
+                <comment>Descripci&#195;&#179;n del objetivo o actividades del rol</comment>
+            </column>
+        </property>
+        <property name="audiUsuario" type="string">
+            <column name="audi_usuario" length="32" not-null="true">
+                <comment>Login de usuario de la persona que realizo la ultima modificaci&#195;&#179;n del registro</comment>
+            </column>
+        </property>
+        <property name="audiFechModi" type="timestamp">
+            <column name="audi_fech_modi" length="29" not-null="true">
+                <comment>Fecha de la ultima modificaci&#195;&#179;n del registro</comment>
+            </column>
+        </property>
+        <property name="audiSiAnul" type="boolean">
+            <column name="audi_si_anul" not-null="true">
+                <comment>Indica si el registro fue anulado (true) o no (false)</comment>
+            </column>
+        </property>
+        <property name="audiMotiAnul" type="string">
+            <column name="audi_moti_anul" length="32">
+                <comment>Motivo de anulacion del registro</comment>
+            </column>
+        </property>
+        <property name="audiChecksum" type="string">
+            <column name="audi_checksum" length="200">
+                <comment>Checksum del registro con SHA1</comment>
+            </column>
+        </property>
+        
+        <set name="pltUsuaRols" table="plt_usua_rol" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="rol_idn" precision="10" scale="0" not-null="true">
+                    <comment>identificador del rol asignado a un usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.codex.codexplt.bd.PltUsuaRol" />
+        </set>
+        <set name="pltPermisos" table="plt_permiso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="rol_idn" precision="10" scale="0" not-null="true">
+                    <comment>identificador del rol al que se le esta asignando el permisos</comment>
+                </column>
+            </key>
+            <one-to-many class="com.codex.codexplt.bd.PltPermiso" />
+        </set>
+    </class>
+</hibernate-mapping>

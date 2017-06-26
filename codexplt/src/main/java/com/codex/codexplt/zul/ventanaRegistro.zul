@@ -1,0 +1,18 @@
+<?page title="Ventana Registro" contentType="text/html;charset=UTF-8"?>
+<!-- OJO TERMINAR -->
+<zk>
+<window title="Ventana Registro" border="normal">
+	<borderlayout>
+		<center>
+
+		</center>
+		<south>
+			<hbox align="center" pack="center" width="100%">
+				<button id="btnAceptar" />
+				<button id="btnCancelar"/>
+			</hbox>
+		</south>
+	</borderlayout>
+	
+</window>
+</zk>

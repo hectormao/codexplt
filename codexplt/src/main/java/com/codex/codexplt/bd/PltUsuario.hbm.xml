@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/03/2017 08:16:33 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.codex.codexplt.bd.PltUsuario" table="plt_usuario" schema="codex">
+        <comment>Tabla que almacena los usuarios de la plataforma</comment>
+        <id name="usuaIdn" type="long">
+            <column name="usua_idn" precision="10" scale="0" />
+            
+             <generator class="sequence" >
+            	<param name="sequence">SQN_PLT_USUARIO</param>
+            </generator>
+        </id>
+        <property name="usuaLogin" type="string">
+            <column name="usua_login" length="20" not-null="true" unique="true">
+                <comment>Login del usuario</comment>
+            </column>
+        </property>
+        <property name="usuaNombre" type="string">
+            <column name="usua_nombre" length="200" not-null="true">
+                <comment>Nombre completo del usuario</comment>
+            </column>
+        </property>
+        <property name="usuaCorreo" type="string">
+            <column name="usua_correo" length="200" not-null="true">
+                <comment>Correo electr&#195;&#179;nico del usuario</comment>
+            </column>
+        </property>
+        <property name="usuaEstado" type="string">
+            <column name="usua_estado" length="1" not-null="true">
+                <comment>Estado del usuario (A) activo (I) inactivo</comment>
+            </column>
+        </property>
+        <property name="usuaInteAute" type="short">
+            <column name="usua_inte_aute" precision="4" scale="0" not-null="true">
+                <comment>Intentos fallidos de autenticaci&#195;&#179;n consecutivos, usado para restringir acceso</comment>
+            </column>
+        </property>
+        <property name="usuaClave" type="string">
+            <column name="usua_clave" length="200" not-null="true">
+                <comment>Clave de acceso del usuario, encriptado con SHA1</comment>
+            </column>
+        </property>
+        <property name="usuaFechClav" type="timestamp">
+            <column name="usua_fech_clav" length="29" not-null="true">
+                <comment>Fecha de la ultima vez que se cambio la clave</comment>
+            </column>
+        </property>
+        <property name="audiUsuario" type="string">
+            <column name="audi_usuario" length="20" not-null="true">
+                <comment>Login de usuario de la persona que realizo la ultima modificaci&#195;&#179;n del registro</comment>
+            </column>
+        </property>
+        <property name="audiFechModi" type="timestamp">
+            <column name="audi_fech_modi" length="29" not-null="true">
+                <comment>Fecha de la ultima modificaci&#195;&#179;n del registro</comment>
+            </column>
+        </property>
+        <property name="audiSiAnul" type="boolean">
+            <column name="audi_si_anul" not-null="true">
+                <comment>Indica si el registro fue anulado (true) o no (false)</comment>
+            </column>
+        </property>
+        <property name="audiMotiAnul" type="string">
+            <column name="audi_moti_anul" length="32">
+                <comment>Motivo de anulacion del registro</comment>
+            </column>
+        </property>
+        <property name="audiChecksum" type="string">
+            <column name="audi_checksum" length="200">
+                <comment>Checksum del registro con SHA1</comment>
+            </column>
+        </property>
+        <set name="pltUsuaRols" table="plt_usua_rol" inverse="true" lazy="false" fetch="join">
+            <key>
+                <column name="usua_idn" precision="10" scale="0" not-null="true">
+                    <comment>identificador del usuario al que se le asigna el rol</comment>
+                </column>
+            </key>
+            <one-to-many class="com.codex.codexplt.bd.PltUsuaRol" />
+        </set>
+        
+    </class>
+</hibernate-mapping>
