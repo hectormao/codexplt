@@ -13,6 +13,7 @@ import org.zkoss.zhtml.Div;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Hlayout;
@@ -127,13 +128,28 @@ public class UsuarioCnt extends WindowComposer {
 		Div div = new Div();
 		Label label = new Label();
 		label.setId("lblConfirmarClave");
-		label.setValue("Confirmar clave");
+		String labelValue = Labels.getLabel("app.confirmarClave");
+		label.setValue(labelValue);
 		label.setStyle("font-weight:bold;");
 		div.appendChild(label);
 		div.setStyle("width:150px");
 		hlayout.appendChild(div);
 		txtConfirmarClave.setType("password");
 		txtConfirmarClave.setWidth("150px");
+		txtConfirmarClave.setReadonly(true);
+		txtConfirmarClave.setStyle("background-color:#D8D8D8");
+		txtConfirmarClave.setValue(usu.getUsuaClave());
+		txtClave.addEventListener(Events.ON_CHANGE, new EventListener<Event>() {
+
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				if(txtConfirmarClave.isReadonly()){
+					txtConfirmarClave.setReadonly(false);
+					txtConfirmarClave.setValue("");
+					txtConfirmarClave.setStyle("background-color:#FFFFFF");
+				}
+			}
+		});
 		hlayout.appendChild(txtConfirmarClave);
 		vlylogin.appendChild(hlayout);
 	}
@@ -206,10 +222,12 @@ public class UsuarioCnt extends WindowComposer {
 			usuarioNgc.crearUsuario(usu, usu.getLogin());
 			asociarRolesUsuario(usu);
 		} else if (formulario.getTipo().equalsIgnoreCase(ConstantesAdmin.FORMULARIO_TIPO_EDITAR)) {
-			String Clave1 = txtConfirmarClave.getValue();
-			String Clave2 = txtClave.getValue();
-			if(!Clave1.equalsIgnoreCase(Clave2)){
-				throw new PltException(ConstantesAdmin.ERR0012);
+			if(! txtConfirmarClave.isReadonly()){
+				String Clave1 = txtConfirmarClave.getValue();
+				String Clave2 = txtClave.getValue();
+				if(!Clave1.equalsIgnoreCase(Clave2)){
+					throw new PltException(ConstantesAdmin.ERR0012);
+				}
 			}
 			usuarioNgc.modificarUsuario(usu);
 			
@@ -257,11 +275,14 @@ public class UsuarioCnt extends WindowComposer {
 	}
 
 	protected void establecerDatos() throws WrongValueException, Exception {
-		EncriptarClave encriptarClave = new EncriptarClave();
+		
 		usu.setUsuaNombre(txtNombreCompleto.getValue());
 		usu.setUsuaCorreo(txtCorreo.getValue());
-		usu.setUsuaLogin(txtLogin.getValue());		
-		usu.setUsuaClave(encriptarClave.encryptPassword(txtClave.getValue()));		
+		usu.setUsuaLogin(txtLogin.getValue());	
+		if (! (formulario.getTipo().equalsIgnoreCase(ConstantesAdmin.FORMULARIO_TIPO_EDITAR) && txtConfirmarClave.isReadonly())){
+			EncriptarClave encriptarClave = new EncriptarClave();
+			usu.setUsuaClave(encriptarClave.encryptPassword(txtClave.getValue()));		
+		}
 		usu.setUsuaEstado(ConstantesAdmin.ESTADO_ACTIVO);
 		usu.setUsuaInteAute(new Short("0"));
 		usu.setUsuaFechClav(new Date());
